@@ -1,5 +1,5 @@
 import pygame
-from .constants import BLACK, ROWS, RED, SQUARE_SIZE, COLS, WHITE
+from .constants import BLACK, ROWS,WHITEBOARD,GREEN, RED, SQUARE_SIZE, COLS, WHITE
 from .piece import Piece
 #
 class Board:
@@ -10,10 +10,10 @@ class Board:
         self.create_board()                     #to initial stand in the board
 
     def draw_squares(self, win):
-        win.fill(BLACK)     #fill the board with black
+        win.fill(WHITEBOARD)     #fill the board with black
         for row in range(ROWS):     #loop in each row
             for col in range(row % 2, COLS, 2): #loop in one clomns and skep next
-                pygame.draw.rect(win, RED, (row*SQUARE_SIZE, col *SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE))   #drow the red
+                pygame.draw.rect(win, GREEN, (row*SQUARE_SIZE, col *SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE))   #drow the red
 #
     def move(self, piece, row, col):    #where the piece will move
         self.board[piece.row][piece.col], self.board[row][col] = self.board[row][col], self.board[piece.row][piece.col] #swap the design
@@ -63,9 +63,9 @@ class Board:
 
     def winner(self):   #the winer
         if self.red_left <= 0:  #if num pieces of red is 0 (no exit red piece)
-            return "WHITE Wins"        #return the white
+            return "WHITE Is Winner"        #return the white
         elif self.white_left <= 0:  #if num pieces of white is 0 (no exit white piece)
-            return "RED wins"              #return the red
+            return "RED is Winner"              #return the red
 
         return None     #if exist red and white pieses
 #
