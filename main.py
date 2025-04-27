@@ -1,15 +1,13 @@
-
 import pygame
 from checkers.game import Game
 from checkers.constants import WIDTH, HEIGHT, SQUARE_SIZE, RED ,WHITE
 from Algo.algorithm import minimax
 
-FPS = 60   #time of wait
-    #window design
-WIN = pygame.display.set_mode((WIDTH, HEIGHT))  #width and height of window
-pygame.display.set_caption('Checkers')      #name of window
+FPS = 60
+WIN = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption('Checkers')
 
-def get_row_col_from_mouse(pos):    #where mouse click
+def get_row_col_from_mouse(pos):
     x, y = pos
     row = y // SQUARE_SIZE
     col = x // SQUARE_SIZE
@@ -17,46 +15,35 @@ def get_row_col_from_mouse(pos):    #where mouse click
 
 def main():
     run = True
-    clock = pygame.time.Clock() #define clock
-    # board = Board()             #object from calss Board  #deleted because the line below (Game) initial make object from Board
-    game = Game(WIN)    #instade of the above line
+    clock = pygame.time.Clock()
+    game = Game(WIN)
 
-    # pec=board.get_piece(0, 1)  for check only
-    # board.move(pec, 7, 3)      for check only
-
-
-    #event loop
     while run:
-        clock.tick(FPS) #wait
+        clock.tick(FPS)
 
         if game.turn == WHITE:
             value, new_board = minimax(game.get_board(), 4, WHITE, game)
-            game.ai_move(new_board)
-
-#
-        if game.winner() != None:   #if exist winner
-            print(game.winner())
-            run = False             #exist loop
-#
-        for event in pygame.event.get():    #loop for get event from user
-            if event.type == pygame.QUIT:   #if user pressure on X
+            if new_board is not None:
+                game.ai_move(new_board)
+            else:
+                print("No moves left for AI.")
                 run = False
 
-            if event.type == pygame.MOUSEBUTTONDOWN:    #condition when click mouse
-                pos = pygame.mouse.get_pos()            #read position of click
-                row, col = get_row_col_from_mouse(pos)  #send the position to function to get the row and clomns of click
+        if game.winner() is not None:
+            print(game.winner())
+            run = False
+
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                run = False
+
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                pos = pygame.mouse.get_pos()
+                row, col = get_row_col_from_mouse(pos)
                 game.select(row, col)
 
-                # pec = board.get_piece(row, col) #for check only
-                # board.move(pec, 7, 3)      #for check only
+        game.update()
 
+    pygame.quit()
 
-
-        # board.draw(WIN) #drow the fill board
-        # pygame.display.update() #display the change of board
-#
-        game.update()   #we call the function instade of the above two lines
-#
-    pygame.quit()   #exit window
-#
 main()

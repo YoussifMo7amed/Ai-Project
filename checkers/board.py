@@ -63,9 +63,9 @@ class Board:
 
     def winner(self):   #the winer
         if self.red_left <= 0:  #if num pieces of red is 0 (no exit red piece)
-            return WHITE        #return the white
+            return "WHITE Wins"        #return the white
         elif self.white_left <= 0:  #if num pieces of white is 0 (no exit white piece)
-            return RED              #return the red
+            return "RED wins"              #return the red
 
         return None     #if exist red and white pieses
 #
