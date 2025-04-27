@@ -5,7 +5,10 @@ ROWS, COLS = 8, 8           #number of colmns and rows
 SQUARE_SIZE = WIDTH//COLS   #size of the square
 
         #RGB
-RED = (255, 0, 0)
+RED = (128, 0, 0)
+# REDPIECE = (128, 0, 0)
+GREEN = (60, 179, 112)
+WHITEBOARD=(240, 248, 254)
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 BLUE = (0, 0, 255)
